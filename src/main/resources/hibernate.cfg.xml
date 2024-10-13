@@ -20,9 +20,9 @@
         <property name="hbm2ddl.auto">update</property>
 
         <!-- Mapping de las clases -->
-        <mapping class="com.agricultura.dto.Agricultor"/>
-        <mapping class="com.agricultura.dto.Plantacion"/>
-        <mapping class="com.agricultura.dto.Insumo"/>
-        <mapping class="com.agricultura.dto.Etapa"/>
+        <mapping class="com.agricultura.model.Agricultor"/>
+        <mapping class="com.agricultura.model.Plantacion"/>
+        <mapping class="com.agricultura.model.Insumo"/>
+        <mapping class="com.agricultura.model.Etapa"/>
     </session-factory>
 </hibernate-configuration>

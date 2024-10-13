@@ -2,8 +2,8 @@ package com.agricultura.controller;
 
 import com.agricultura.dao.AgricultorDAO;
 import com.agricultura.dao.PlantacionDAO;
-import com.agricultura.dto.Agricultor;
-import com.agricultura.dto.Plantacion;
+import com.agricultura.model.Agricultor;
+import com.agricultura.model.Plantacion;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

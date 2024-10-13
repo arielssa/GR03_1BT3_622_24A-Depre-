@@ -1,9 +1,7 @@
 package com.agricultura.controller;
 
 import com.agricultura.dao.InsumoDAO;
-import com.agricultura.dao.PlantacionDAO;
-import com.agricultura.dto.Insumo;
-import com.agricultura.dto.Plantacion;
+import com.agricultura.model.Insumo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

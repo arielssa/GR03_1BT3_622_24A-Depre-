@@ -1,7 +1,6 @@
 package com.agricultura.dao;
 
-import com.agricultura.dto.Agricultor;
-import com.agricultura.dto.Insumo;
+import com.agricultura.model.Insumo;
 import com.agricultura.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

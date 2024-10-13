@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al Registro Agrícola</title>
+    <title>Bienvenido al Sistema</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
-    <h1>Bienvenido al Sistema de Registro Agrícola</h1>
-    <p>Gestión de agricultores y plantaciones</p>
+    <h1>Bienvenido al Sistema de Trazabilidad Agrícola</h1>
+    <p>Gestión de plantaciones</p>
 </header>
 
 <nav>
@@ -25,7 +25,7 @@
 </nav>
 
 <footer>
-    <p>&copy; 2024 Sistema de Registro Agrícola - Todos los derechos reservados.</p>
+    <p>&copy; 2024 Sistema de Trazabilidad Agrícola - Todos los derechos reservados.</p>
 </footer>
 
 </body>

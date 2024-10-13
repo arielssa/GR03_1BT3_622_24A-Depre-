@@ -1,4 +1,4 @@
-package com.agricultura.dto;
+package com.agricultura.model;
 
 import javax.persistence.*;
 
