@@ -21,7 +21,7 @@
         <li><a href="listarPlantaciones">Listar Plantaciones</a></li>
         <li><a href="registrarInsumo">Aplicar Insumo</a></li>
         <li><a href="listarInsumos">Listar Insumos</a></li>
-        <li><a href="actualizarEtapaPlantacion">Actualizar etapa de Plantación</a></li>
+        <li><a href="actualizarEtapaPlantacion">Actualizar Etapa de Plantación</a></li>
     </ul>
 </nav>
 
