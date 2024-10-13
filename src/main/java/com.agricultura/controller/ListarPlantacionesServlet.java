@@ -22,7 +22,6 @@ public class ListarPlantacionesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obtener la lista de agricultores
-        // Implementa un método en AgricultorDAO para listar todos
         List<Plantacion> plantaciones = plantacionDAO.listarTodasPlantaciones();
         request.setAttribute("plantaciones", plantaciones);
 

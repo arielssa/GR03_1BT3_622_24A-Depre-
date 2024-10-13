@@ -41,10 +41,9 @@ public class RegistroAgricultorServlet extends HttpServlet {
         agricultor.setEmail(email);
         agricultor.setPassword(password); // Considera encriptar la contraseña
 
-        // Guardar en la base de datos
         agricultorDAO.saveAgricultor(agricultor);
 
-        // Redirigir a una página de éxito o listado
+        // Página de listado
         response.sendRedirect("listarAgricultores");
     }
 }

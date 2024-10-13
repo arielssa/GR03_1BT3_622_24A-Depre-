@@ -32,7 +32,7 @@ public class RegistroInsumoServlet extends HttpServlet {
         List<Plantacion> plantaciones = plantacionDAO.listarTodasPlantaciones();
         request.setAttribute("plantaciones", plantaciones);
 
-        // Redirigir al formulario de registro de insumo (registrarInsumo.jsp)
+        // Formulario de registro
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/insumos/registro.jsp");
         dispatcher.forward(request, response);
     }

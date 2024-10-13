@@ -28,15 +28,17 @@ public class PlantacionDAO {
         }
     }
 
-    public void updateEtapa(Plantacion plantacion) {
+    public boolean updateEtapa(Plantacion plantacion) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(plantacion);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
+            return false;
         }
     }
 
