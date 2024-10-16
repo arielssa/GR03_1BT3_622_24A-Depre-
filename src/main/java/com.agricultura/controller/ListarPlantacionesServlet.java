@@ -1,13 +1,11 @@
 package com.agricultura.controller;
 
 import com.agricultura.dao.PlantacionDAO;
-import com.agricultura.model.Plantacion;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/listarPlantaciones")
 public class ListarPlantacionesServlet extends HttpServlet {
@@ -21,11 +19,12 @@ public class ListarPlantacionesServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Obtener la lista de agricultores
-        List<Plantacion> plantaciones = plantacionDAO.listarTodasPlantaciones();
-        request.setAttribute("plantaciones", plantaciones);
+        // obtener la lista de plantaciones
+        request.setAttribute("plantaciones", plantacionDAO.listarTodasPlantaciones());
 
-        // Forward a la JSP de listado
+        // jsp de listado de plantaciones
         request.getRequestDispatcher("/jsp/plantaciones/listar.jsp").forward(request, response);
     }
 }
+
+
