@@ -73,18 +73,21 @@ public class ActualizarEtapaPlantacionServlet extends HttpServlet {
 
         int plantacionId = Integer.parseInt(plantacionIdStr);
         Plantacion plantacion = plantacionDAO.getPlantacionById(plantacionId);
-        if (plantacion != null) {
-            plantacion.setEtapaActual(nuevaEtapa);
-            boolean actualizado = plantacionDAO.updateEtapa(plantacion);
-            if (actualizado) {
-                request.setAttribute("mensaje", "Etapa actualizada exitosamente para la plantación ID: " + plantacionId);
-                request.setAttribute("mensajeTipo", "success");
-            } else {
-                request.setAttribute("mensaje", "Error al actualizar la etapa para la plantación ID: " + plantacionId);
-                request.setAttribute("mensajeTipo", "error");
-            }
-        } else {
+
+        if (plantacion == null) {
             request.setAttribute("mensaje", "Plantación no encontrada con ID: " + plantacionId);
+            request.setAttribute("mensajeTipo", "error");
+            return;
+        }
+
+        plantacion.setEtapaActual(nuevaEtapa);
+        boolean actualizado = plantacionDAO.updateEtapa(plantacion);
+
+        if (actualizado) {
+            request.setAttribute("mensaje", "Etapa actualizada exitosamente para la plantación ID: " + plantacionId);
+            request.setAttribute("mensajeTipo", "success");
+        } else {
+            request.setAttribute("mensaje", "Error al actualizar la etapa para la plantación ID: " + plantacionId);
             request.setAttribute("mensajeTipo", "error");
         }
 
