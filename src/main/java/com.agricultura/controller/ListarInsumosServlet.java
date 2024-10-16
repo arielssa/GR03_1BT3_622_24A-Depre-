@@ -21,11 +21,8 @@ public class ListarInsumosServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Obtener la lista de agricultores
-        List<Insumo> insumos = insumoDAO.listarTodosInsumos();
-        request.setAttribute("insumos", insumos);
 
-        // Forward a la JSP de listado
+        request.setAttribute("insumos", insumoDAO.listarTodosInsumos());
         request.getRequestDispatcher("/jsp/insumos/listar.jsp").forward(request, response);
     }
 }
