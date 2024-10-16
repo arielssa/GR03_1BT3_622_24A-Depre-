@@ -20,7 +20,6 @@ public class ActualizarEtapaPlantacionServlet extends HttpServlet {
     @Override
     public void init() {
         plantacionDAO = new PlantacionDAO();
-        // Definir las etapas disponibles para la actualización
         etapasDisponibles = Arrays.asList(
                 "Preparación del terreno",
                 "Siembra",
@@ -32,47 +31,64 @@ public class ActualizarEtapaPlantacionServlet extends HttpServlet {
         );
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void cargarPlantaciones(HttpServletRequest request) {
         List<Plantacion> plantaciones = plantacionDAO.listarTodasPlantaciones();
         request.setAttribute("plantaciones", plantaciones);
         request.setAttribute("etapasDisponibles", etapasDisponibles);
+    }
+
+    private String validarParametrosActualizacion(String plantacionIdStr, String nuevaEtapa) {
+        if (plantacionIdStr == null || plantacionIdStr.isEmpty()) {
+            return "ID de plantación faltante.";
+        }
+        if (nuevaEtapa == null || nuevaEtapa.isEmpty()) {
+            return "Etapa nueva faltante.";
+        }
+        return null;
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        cargarPlantaciones(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/plantaciones/actualizarEtapa.jsp");
         dispatcher.forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtener parámetros del formulario
         String plantacionIdStr = request.getParameter("plantacionId");
         String nuevaEtapa = request.getParameter("nuevaEtapa");
 
-        if (plantacionIdStr != null && nuevaEtapa != null && !nuevaEtapa.isEmpty()) {
-            int plantacionId = Integer.parseInt(plantacionIdStr);
-            Plantacion plantacion = plantacionDAO.getPlantacionById(plantacionId);
-            if (plantacion != null) {
-                // Actualizar la etapa de la plantación
-                plantacion.setEtapaActual(nuevaEtapa);
-                boolean actualizado = plantacionDAO.updateEtapa(plantacion);
-                if (actualizado) {
-                    request.setAttribute("mensaje", "Etapa actualizada exitosamente para la plantación ID: " + plantacionId);
-                    request.setAttribute("mensajeTipo", "success");
-                } else {
-                    request.setAttribute("mensaje", "Error al actualizar la etapa para la plantación ID: " + plantacionId);
-                    request.setAttribute("mensajeTipo", "error");
-                }
+        // Validar parámetros
+        String errorMensaje = validarParametrosActualizacion(plantacionIdStr, nuevaEtapa);
+        if (errorMensaje != null) {
+            request.setAttribute("mensaje", errorMensaje);
+            request.setAttribute("mensajeTipo", "error");
+            cargarPlantaciones(request);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/plantaciones/actualizarEtapa.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        int plantacionId = Integer.parseInt(plantacionIdStr);
+        Plantacion plantacion = plantacionDAO.getPlantacionById(plantacionId);
+        if (plantacion != null) {
+            plantacion.setEtapaActual(nuevaEtapa);
+            boolean actualizado = plantacionDAO.updateEtapa(plantacion);
+            if (actualizado) {
+                request.setAttribute("mensaje", "Etapa actualizada exitosamente para la plantación ID: " + plantacionId);
+                request.setAttribute("mensajeTipo", "success");
             } else {
-                request.setAttribute("mensaje", "Plantación no encontrada con ID: " + plantacionId);
+                request.setAttribute("mensaje", "Error al actualizar la etapa para la plantación ID: " + plantacionId);
                 request.setAttribute("mensajeTipo", "error");
             }
         } else {
-            request.setAttribute("mensaje", "Datos incompletos para la actualización.");
+            request.setAttribute("mensaje", "Plantación no encontrada con ID: " + plantacionId);
             request.setAttribute("mensajeTipo", "error");
         }
 
-        // Volver a listar las plantaciones con el mensaje
-        List<Plantacion> plantaciones = plantacionDAO.listarTodasPlantaciones();
-        request.setAttribute("plantaciones", plantaciones);
-        request.setAttribute("etapasDisponibles", etapasDisponibles);
+        cargarPlantaciones(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/plantaciones/actualizarEtapa.jsp");
         dispatcher.forward(request, response);
     }

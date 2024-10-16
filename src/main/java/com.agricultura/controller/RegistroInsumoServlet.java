@@ -39,7 +39,18 @@ public class RegistroInsumoServlet extends HttpServlet {
 
     // Procesar el formulario de registro de insumo (POST)
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Obtener los parámetros del formulario
+        // Obtener el objeto Insumo encapsulado en el nuevo método
+        Insumo insumo = obtenerParametrosInsumo(request);
+
+        // Guardar el insumo en la base de datos utilizando el DAO
+        insumoDAO.saveInsumo(insumo);
+
+        // Redirigir a la lista de insumos
+        response.sendRedirect("listarInsumos");
+    }
+
+    private Insumo obtenerParametrosInsumo(HttpServletRequest request) {
+        // Obtener parámetros del formulario
         String tipoInsumo = request.getParameter("tipoInsumo");
         String nombreInsumo = request.getParameter("nombreInsumo");
         double cantidadUtilizada = Double.parseDouble(request.getParameter("cantidadUtilizada"));
@@ -69,10 +80,6 @@ public class RegistroInsumoServlet extends HttpServlet {
         insumo.setLoteONumeroSerie(lote);
         insumo.setPlantacion(plantacion);  // Asociar el insumo con la plantación
 
-        // Guardar el insumo en la base de datos utilizando el DAO
-        insumoDAO.saveInsumo(insumo);
-
-        // Redirigir a la lista de insumos
-        response.sendRedirect("listarInsumos");
+        return insumo;
     }
 }

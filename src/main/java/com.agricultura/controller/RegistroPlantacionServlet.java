@@ -37,6 +37,17 @@ public class RegistroPlantacionServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Obtener los parámetros del formulario encapsulados en el nuevo método
+        Plantacion plantacion = obtenerParametrosDelFormulario(request);
+
+        // Guardar en la base de datos
+        plantacionDAO.savePlantacion(plantacion);
+
+        // Redirigir a una página de éxito o listado
+        response.sendRedirect("listarPlantaciones");
+    }
+
+    private Plantacion obtenerParametrosDelFormulario(HttpServletRequest request) {
         // Obtener parámetros del formulario
         String ubicacion = request.getParameter("ubicacion");
         double extension = Double.parseDouble(request.getParameter("extension"));
@@ -67,10 +78,6 @@ public class RegistroPlantacionServlet extends HttpServlet {
         plantacion.setFechaCultivo(fechaCultivo);
         plantacion.setAgricultor(agricultor);
 
-        // Guardar en la base de datos
-        plantacionDAO.savePlantacion(plantacion);
-
-        // Redirigir a una página de éxito o listado
-        response.sendRedirect("listarPlantaciones");
+        return plantacion;
     }
 }
